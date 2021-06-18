@@ -1,13 +1,18 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
+    <router-button></router-button>
     <router-view/>
   </div>
 </template>
 
 <script>
+import RouterButton from '@/view/routerButton.vue'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    RouterButton
+  }
 }
 </script>
 

@@ -10,7 +10,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 export default {
-  name: 'ThreeTest',
+  name: 'Demo1',
   data() {
     return {
       camera: null,
@@ -18,10 +18,7 @@ export default {
       renderer: null,
       mesh: null,
       controls:null,
-      meshCar:null,
-      raycaster:null,
-      mouse:null,
-      INTERSECTED :null
+      meshCar:null
     }
   },
   methods: {
@@ -30,8 +27,6 @@ export default {
      * 创建场景对象Scene
      */
     this.scene = new THREE.Scene();
-    this.raycaster = new THREE.Raycaster();
-    this.mouse = new THREE.Vector2();
     /**
      * 创建网格模型
      */
@@ -59,7 +54,7 @@ export default {
     point.position.set(400, 200, 300); //点光源位置
     this.scene.add(point); //点光源添加到场景中
      //环境光
-    const ambient = new THREE.AmbientLight(0x444444);
+    const ambient = new THREE.AmbientLight(0xffffff);
     this.scene.add(ambient);
     // console.log(scene)
     // console.log(scene.children)
@@ -91,50 +86,17 @@ export default {
     this.scene.add(axisHelper);
     },
     render() {
-
+        this.renderer.render(this.scene,this.camera);//执行渲染操作
         this.mesh.rotateY(-0.01);//每次绕y轴旋转0.01弧度
         this.meshCar.rotateZ(0.01) // 每次绕y轴旋转0.01弧度
-        // this.meshCar.translateZ(0.3); // 每次绕z轴平移0.01
-        	// 通过摄像机和鼠标位置更新射线
-        this.raycaster.setFromCamera( this.mouse, this.camera );
-
-        // 计算物体和射线的焦点
-        const intersects = this.raycaster.intersectObjects( this.scene.children );
-
-        if ( intersects.length > 0 ) {
-
-					if ( this.INTERSECTED != intersects[ 0 ].object ) {
-
-						if ( this.INTERSECTED ) this.INTERSECTED.material.emissive.setHex( this.INTERSECTED.currentHex );
-
-						this.INTERSECTED = intersects[ 0 ].object;
-						this.INTERSECTED.currentHex = this.INTERSECTED.material.emissive.getHex();
-						this.INTERSECTED.material.emissive.setHex( 0xff0000 );
-
-					}
-
-				} else {
-
-					if ( this.INTERSECTED ) this.INTERSECTED.material.emissive.setHex( this.INTERSECTED.currentHex );
-
-					this.INTERSECTED = null;
-
-				}
-        this.renderer.render(this.scene,this.camera);//执行渲染操作
+        this.meshCar.translateZ(0.3); // 每次绕z轴平移0.01
         requestAnimationFrame(this.render);//请求再次执行渲染函数render
         
-    },
-    onMouseMove(event) {
-	    // 将鼠标位置归一化为设备坐标。x 和 y 方向的取值范围是 (-1 to +1)
-      this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-      this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-      console.log(this.mouse)
     }
   },
   mounted() {
       this.init();
       this.render();
-      window.addEventListener('mousemove',this.onMouseMove,false)
   }
 }
 </script>
