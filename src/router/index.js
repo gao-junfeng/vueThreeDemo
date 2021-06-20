@@ -6,11 +6,20 @@ Vue.use(Router)
 
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
       name: 'HelloWorld',
-      component:require('@/components/HelloWorld').default
+      component:require('@/components/HelloWorld').default,
+      children:[
+        {
+          path: '/demo1',
+          name: 'Demo1',
+          component:require('@/components/demo1').default,
+        }
+      ]
     }
+    
   ]
 })
