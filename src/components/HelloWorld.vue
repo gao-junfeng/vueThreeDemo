@@ -1,5 +1,4 @@
-
-<template>
+ <template>
     <div>
       <div id="container"></div>
     </div>
@@ -18,7 +17,8 @@ export default {
       renderer: null,
       mesh: null,
       controls:null,
-      meshCar:null
+      meshCar:null,
+      planeMesh:null
     }
   },
   methods: {
@@ -46,6 +46,20 @@ export default {
     this.meshCar.position.set(250,0,0)
     this.scene.add(this.mesh); //网格模型添加到场景中
     this.scene.add(this.meshCar); 
+
+    /**
+     * 创建地板
+     */
+    const planeGeometry=new THREE.PlaneGeometry(800,300)
+    const planeMaterial= new THREE.MeshBasicMaterial({color:0xcccccc  })
+    this.planeMesh=new THREE.Mesh(planeGeometry,planeMaterial)
+    this.planeMesh.rotation.x=-0.5* Math.PI
+    this.planeMesh.position.x=150
+    this.planeMesh.position.y=0
+    this.planeMesh.position.z=0
+    this.scene.add(this.planeMesh)
+
+
     /**
      * 光源设置
      */
@@ -64,7 +78,7 @@ export default {
     const width = window.innerWidth; //窗口宽度
     const height = window.innerHeight; //窗口高度
     const k = width / height; //窗口宽高比
-    const s = 200; //三维场景显示范围控制系数，系数越大，显示的范围越大
+    const s = 500; //三维场景显示范围控制系数，系数越大，显示的范围越大
     //创建相机对象
     this.camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 1000);
     this.camera.position.set(200, 300, 200); //设置相机位置
