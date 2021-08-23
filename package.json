@@ -11,12 +11,14 @@
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "plop": "plop"
   },
   "dependencies": {
     "@types/three": "^0.130.0",
+    "colors": "^1.4.0",
     "driver.js": "^0.9.8",
-    "element-ui": "^2.15.2",
+    "element-ui": "^2.15.5",
     "install": "^0.13.0",
     "three": "^0.128.0",
     "vue": "^2.5.2",
@@ -62,6 +64,7 @@
     "node-notifier": "^5.1.2",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
+    "plop": "^2.7.4",
     "portfinder": "^1.0.13",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
