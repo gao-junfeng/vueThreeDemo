@@ -5,16 +5,43 @@ import Router from 'vue-router';
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: require('@/components/HelloWorld').default,
+      redirect: '/layout',
+    },
+
+    {
+      path: '/layout',
+      name: 'layout',
+      component: require('@/layout').default,
+      children: [
+        {
+          path: '/',
+          redirect: '/three',
+        },
+        {
+          path: '/threeButton',
+          name: 'threeButton',
+          component: require('@/view/login').default,
+        },
+        {
+          path: '/mesh',
+          name: 'mesh',
+          component: require('@/components/meshThree').default,
+        },
+        {
+          path: '/three',
+          name: 'three',
+          component: require('@/components/HelloWorld').default,
+        },
+      ],
     },
     {
-      path: '/p1',
-      name: 'table',
-      component: require('@/view/login').default,
+      path: '/*',
+      name: '',
+      component: require('@/view/404').default,
     },
   ],
 });

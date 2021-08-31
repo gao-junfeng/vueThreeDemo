@@ -1,43 +1,63 @@
 <template>
-  <div class="wrapper" :class="{ closeBar: opened }">
-    <m-header></m-header>
-    <transition
-      enter-active-class="animated bounceInRight"
-      leave-active-class="animated bounceOutRight"
-    >
-      <notificat-bar v-show="msgIsShow"></notificat-bar>
-    </transition>
-    <div class="wrapper_con">
-      <side-bar></side-bar>
-      <page-main></page-main>
-    </div>
-  </div>
-</template>
+  <el-container>
+    <!--顶部-->
+    <el-header>
+      <Header />
+    </el-header>
 
+    <!--中央区域-->
+    <el-main>
+      <PageMain />
+    </el-main>
+
+    <!--底部-->
+    <el-footer> <SideBar /></el-footer>
+  </el-container>
+</template>
 <script>
-import SideBar from './components/sideBar'
-import MHeader from './components/header'
-import NotificatBar from '@/components/NotificatBar'
-import PageMain from './components/PageMain'
-import { mapGetters } from 'vuex'
-import driver from '@/mixins/useDriver'
+import Header from './components/header';
+import PageMain from './components/PageMain';
+import SideBar from './components/sideBar';
+
 export default {
-  name: 'layout',
-  mixins: [driver],
-  mounted() {
-    if (this.showDriver === 'yes') {
-      this.guide()
-      this.$store.commit('app/SET_DRIVER', 'no')
-    }
-  },
-  computed: {
-    ...mapGetters(['opened', 'msgIsShow', 'showDriver'])
-  },
   components: {
+    Header,
+    PageMain,
     SideBar,
-    MHeader,
-    NotificatBar,
-    PageMain
-  }
-}
+  },
+};
 </script>
+<style scoped>
+/*整体显示区域布局样式*/
+.el-container {
+  height: 800px;
+}
+
+.el-header,
+.el-main {
+  padding: 0;
+}
+.el-header {
+  background-color: #624462;
+}
+/*左边导航栏具体样式*/
+.el-menu-vertical-demo.el-menu {
+  padding-left: 20px;
+  text-align: left;
+  height: 100%;
+  padding: 0;
+}
+
+el-container > .el-menu-vertical-demo.el-menu {
+  padding: 0;
+}
+
+.el-submenu .el-menu-item,
+.el-menu-item {
+  min-width: 50px;
+}
+
+.el-menu-item {
+  padding: 0;
+}
+</style>

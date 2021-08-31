@@ -1,50 +1,26 @@
 <template>
   <div class="header">
-    <div class="header_l">
-      <a href="javascript:;" class="logoLink"
-        ><img src="./dog.jpg" alt="logo" />Vue Project</a
-      >
-    </div>
-    <div class="header_r">
-      <div class="headr_d1">
-        <side-collapse class="sidecoll"></side-collapse>
-        <bread-crumb class="bread"></bread-crumb>
-      </div>
-      <div class="headr_d2">
-        <ul class="headrUl clearFixed">
-          <li id="domMessage">
-            <el-badge is-dot @click.native="toggleMsgShow">
-              <i class="el-icon-message-solid iconFont"></i>
-            </el-badge>
-          </li>
-          <li id="domFullScreen">
-            <full-screen></full-screen>
-          </li>
-          <li id="domPersonal">
-            <user-dropdown></user-dropdown>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <el-row style="margin: 10px 15px">
+      <el-col :span="2">
+        就是个模型
+        <!-- <a href="#" @click="changeCollapse" style="font-size: 25px;color:#909399;"><i :class="collpaseIcon"></i>123</a> -->
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
-import SideCollapse from '@/components/SideCollapse'
-import BreadCrumb from '@/components/BreadCrumb'
-import UserDropdown from '@/components/UserDropdown'
-import FullScreen from '@/components/FullScreen'
 export default {
-  components: {
-    SideCollapse,
-    BreadCrumb,
-    UserDropdown,
-    FullScreen
-  },
   methods: {
-    toggleMsgShow() {
-      this.$store.commit('app/SET_MSGISOPEN')
-    }
-  }
-}
+    changeCollapse() {
+      // 更改左侧导航栏展示状态
+      this.isCollapse = !this.isCollapse;
+    },
+  },
+};
 </script>
+<style scoped>
+.dogimg {
+  width: 50px;
+}
+</style>
