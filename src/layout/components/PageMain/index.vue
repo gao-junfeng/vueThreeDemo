@@ -25,7 +25,10 @@
               <span slot="title">简介</span>
             </el-menu-item>
             <el-menu-item :route="{ name: 'Astart' }" index="/Astart">
-              <span slot="title">操作</span>
+              <span slot="title">地图绘制操作</span>
+            </el-menu-item>
+            <el-menu-item :route="{ name: 'AstartPro' }" index="/AstartPro">
+              <span slot="title">算法演示</span>
             </el-menu-item>
           </el-menu-item-group>
         </el-submenu>

@@ -39,6 +39,11 @@ export default new Router({
       ],
     },
     {
+      path: '/AstartPro',
+      name: 'AstartPro',
+      component: require('@/components/AstartPro').default,
+    },
+    {
       path: '/Astart',
       name: 'Astart',
       component: require('@/components/Astart').default,
