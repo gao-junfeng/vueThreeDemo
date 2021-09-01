@@ -15,10 +15,20 @@
             <el-menu-item :route="{ name: 'threeButton' }" index="/threeButton">弹框模型</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <el-menu-item index="2">
-          <i class="el-icon-location"></i>
-          <span slot="title">导航二</span>
-        </el-menu-item>
+        <el-submenu index="2">
+          <template slot="title">
+            <i class="el-icon-location"></i>
+            <span slot="title">A*算法</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="2">
+              <span slot="title">简介</span>
+            </el-menu-item>
+            <el-menu-item :route="{ name: 'Astart' }" index="/Astart">
+              <span slot="title">操作</span>
+            </el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
       </el-menu>
     </el-aside>
     <!--主内容显示区域，数据内容都是在这里面渲染的-->
