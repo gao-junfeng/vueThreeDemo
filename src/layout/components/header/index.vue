@@ -1,9 +1,15 @@
 <template>
   <div class="header">
-    <el-row style="margin: 10px 15px">
+    <el-row>
       <el-col :span="2">
-        就是个模型
-        <!-- <a href="#" @click="changeCollapse" style="font-size: 25px;color:#909399;"><i :class="collpaseIcon"></i>123</a> -->
+        <img style="width:80%;" src="./dog.jpg" alt="" />
+      </el-col>
+      <el-col :span="20">
+        three模型看板
+      </el-col>
+      <el-col :span="2">
+        <i class="el-icon-full-screen"></i>
+        <span class="screenFull" @click="screenFull">全屏</span>
       </el-col>
     </el-row>
   </div>
@@ -11,16 +17,23 @@
 
 <script>
 export default {
+  inject: ['screenType'],
+
   methods: {
     changeCollapse() {
       // 更改左侧导航栏展示状态
       this.isCollapse = !this.isCollapse;
     },
+    screenFull() {
+      console.log('点了就全屏');
+      this.screenType.isFull = !this.screenType.isFull;
+      console.log(this.screenType.isFull);
+    },
   },
 };
 </script>
 <style scoped>
-.dogimg {
-  width: 50px;
+.screenFull {
+  cursor: pointer;
 }
 </style>

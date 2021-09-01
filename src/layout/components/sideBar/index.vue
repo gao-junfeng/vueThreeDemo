@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar">底部区域</div>
+  <div class="navbar"></div>
 </template>
 
 <script>

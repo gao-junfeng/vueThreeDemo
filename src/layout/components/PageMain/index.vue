@@ -2,7 +2,7 @@
   <el-container>
     <!--左侧导航栏-->
     <el-aside>
-      <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" router>
+      <el-menu default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" router>
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-location"></i>
@@ -22,10 +22,17 @@
       </el-menu>
     </el-aside>
     <!--主内容显示区域，数据内容都是在这里面渲染的-->
-    <el-main> <router-view></router-view></el-main>
+    <el-main>
+      <router-view></router-view>
+    </el-main>
   </el-container>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    handleOpen() {},
+    handleClose() {},
+  },
+};
 </script>

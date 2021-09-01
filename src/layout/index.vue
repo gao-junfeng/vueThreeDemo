@@ -11,7 +11,7 @@
     </el-main>
 
     <!--底部-->
-    <el-footer> <SideBar /></el-footer>
+    <!-- <el-footer> <SideBar /></el-footer> -->
   </el-container>
 </template>
 <script>
@@ -20,10 +20,23 @@ import PageMain from './components/PageMain';
 import SideBar from './components/sideBar';
 
 export default {
+  data() {
+    return {
+      screenType: {
+        isFull: true,
+      },
+    };
+  },
   components: {
     Header,
     PageMain,
     SideBar,
+  },
+
+  provide() {
+    return {
+      screenType: this.screenType,
+    };
   },
 };
 </script>
@@ -38,7 +51,10 @@ export default {
   padding: 0;
 }
 .el-header {
-  background-color: #624462;
+  background-color: #b3c0d1;
+  color: #333;
+  text-align: center;
+  line-height: 60px;
 }
 /*左边导航栏具体样式*/
 .el-menu-vertical-demo.el-menu {

@@ -1,6 +1,7 @@
 <template>
   <div>
     <div id="container"></div>
+    <el-button type="primary" :disabled="screenType.isFull">全屏没做好等下一期吧{{ foo }}</el-button>
   </div>
 </template>
 
@@ -10,6 +11,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 export default {
   name: 'ThreeTest',
+  inject: ['screenType'],
   props: {
     width: {
       type: Number,
@@ -31,6 +33,16 @@ export default {
       planeMesh: null,
       step: 0,
     };
+  },
+  computed: {
+    foo() {
+      if (this.screenType.isFull) {
+        const foo = document.getElementById('container');
+        foo.requestFullscreen();
+        console.log('全屏操作');
+      }
+      return this.screenType.isFull;
+    },
   },
   methods: {
     init: function() {
