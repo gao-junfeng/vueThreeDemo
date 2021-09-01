@@ -1,6 +1,7 @@
 <template>
   <div>
     <div id="container"></div>
+    <el-button type="warning" @click="notice">双击产生起始位置或者终止位置</el-button>
   </div>
 </template>
 
@@ -241,17 +242,21 @@ export default {
       this.renderer.render(this.scene, this.camera); //执行渲染操作
       requestAnimationFrame(this.render); //请求再次执行渲染函数render
     },
+    notice() {
+      this.$notify({
+        title: '提示',
+        message: '双击产生起始位置或者终止位置,点到场景外不生效，场景不加A*算法循迹',
+        duration: 0,
+      });
+    },
   },
   mounted() {
     this.init();
     this.render();
 
     document.addEventListener('dblclick', this.rayClick, false);
+    this.notice();
   },
 };
 </script>
-<style scoped>
-#container {
-  height: 400px;
-}
-</style>
+<style scoped></style>
