@@ -5,7 +5,7 @@ import Router from 'vue-router';
 Vue.use(Router);
 
 export default new Router({
-  mode: 'history',
+  // mode: 'history', github部署项目好像用这个有问题 FIXME 先用hash
   routes: [
     {
       path: '/',
