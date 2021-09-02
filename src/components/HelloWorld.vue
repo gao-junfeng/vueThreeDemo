@@ -157,7 +157,7 @@ export default {
     },
     addGrass() {
       const loader = new THREE.TextureLoader();
-      const texture = loader.load('../../static/grasslight-big.jpg');
+      const texture = loader.load('/static/grasslight-big.jpg');
       console.log(texture);
       texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
       texture.repeat.set(0.01, 0.01);
