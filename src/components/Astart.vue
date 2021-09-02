@@ -3,6 +3,7 @@
     <div id="container"></div>
     <el-button type="danger" @click="notice">双击产生起始位置或者终止位置</el-button>
     场景双击不生效是由于偏移量造成的，请跳转外链验证（如在外联请忽略）
+    <router-link to="/"><el-button>返回首页</el-button></router-link>
   </div>
 </template>
 

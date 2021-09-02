@@ -3,6 +3,26 @@
     <div id="container"></div>
     <el-button type="danger" @click="notice">双击产生起始位置或者终止位置</el-button>
     场景双击不生效是由于偏移量造成的，请跳转外链验证（如在外联请忽略）
+    <el-row style="margin-top:20px">
+      <el-col :span="6">
+        模型地图宽： <el-input-number v-model="length" :step="10" :min="200"></el-input-number>
+      </el-col>
+      <el-col :span="6">
+        物体密度： <el-input-number v-model="flex" :step="1" :min="0" :max="10"></el-input-number>
+      </el-col>
+      <el-col :span="12">
+        <el-button type="success" @click="submit"> 生效</el-button>
+        <router-link to="/"><el-button>返回首页</el-button></router-link>
+      </el-col>
+    </el-row>
+    <el-row style="margin-top:20px">
+      <el-col :span="6">
+        球步进距离： <el-input-number v-model="step" :precision="1" :step="0.5" :min="0.5"></el-input-number>
+      </el-col>
+      <el-col :span="8">
+        渲染一次/毫秒： <el-input-number v-model="interval" :step="1" :min="5" :max="1000"></el-input-number>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -34,8 +54,10 @@ export default {
       planeMesh: null,
       step: 0,
 
+      group: null,
+
       // 表格参数
-      length: 400, // 宽
+      length: 200, // 宽
       flex: 4, // 随即物体密度
       isCaculate: false,
       resultArray: [], // 存放小球的位置
@@ -51,6 +73,21 @@ export default {
   },
 
   methods: {
+    // 参数生效
+
+    submit() {
+      // 清空所有模型对象Mesh
+      // this.scene.dispose(this.group);
+      const scene = this.scene;
+      for (let i = scene.children.length - 1; i >= 0; i--) {
+        if (scene.children[i].type === 'Mesh' || scene.children[i].type === 'Line') scene.remove(scene.children[i]);
+      }
+      this.createNet();
+
+      this.createWall();
+
+      this.createObjs();
+    },
     pathAnimate(result, tempSphere) {
       const length = this.length;
       this.timesRun = 0;
@@ -206,6 +243,7 @@ export default {
     createObjs() {
       const length = this.length;
       const flex = this.flex;
+      this.graph = []; // 清理数据
       const geometry = new THREE.CubeGeometry(8, 8, 8);
       const material = new THREE.MeshBasicMaterial({ color: 0xc0c0c0 });
       for (let i = 0; i < length / 10; i++) {
@@ -233,21 +271,22 @@ export default {
       const material = new THREE.MeshBasicMaterial({ color: 0x808080, side: THREE.DoubleSide });
       const planeS = new THREE.Mesh(geometry, material);
       planeS.position.set(0, 5, length / 2);
-      this.scene.add(planeS);
+      // this.scene.add(planeS);
 
       const planeE = new THREE.Mesh(geometry, material);
       planeE.rotation.y = (90 * Math.PI) / 180;
       planeE.position.set(length / 2, 5, 0);
-      this.scene.add(planeE);
+      // this.scene.add(planeE);
 
       const planeN = new THREE.Mesh(geometry, material);
       planeN.position.set(0, 5, -length / 2);
-      this.scene.add(planeN);
+      // this.scene.add(planeN);
 
       const planeA = new THREE.Mesh(geometry, material);
       planeA.rotation.y = (90 * Math.PI) / 180;
       planeA.position.set(-length / 2, 5, 0);
-      this.scene.add(planeA);
+
+      this.scene.add(planeA, planeS, planeE, planeN);
     },
     createNet() {
       const length = this.length;
@@ -271,6 +310,7 @@ export default {
        * 创建场景对象Scene
        */
       this.scene = new THREE.Scene();
+      this.group = new THREE.Group();
       /**
        * 创建网格模型
        */
@@ -340,7 +380,7 @@ export default {
       this.$notify({
         title: '提示',
         message: '双击产生起始位置或者终止位置,点到场景外不生效，场景不加A*算法循迹',
-        duration: 0,
+        duration: 5000,
       });
     },
   },
