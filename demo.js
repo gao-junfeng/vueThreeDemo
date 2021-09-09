@@ -1,31 +1,9 @@
-require('colors');
-
-function mySetInterVal(fn, a, b) {
-  this.a = a;
-  this.b = b;
-  this.time = 0;
-  this.handle = -1;
-  this.start = () => {
-    this.handle = setTimeout(() => {
-      fn();
-      this.time++;
-      this.start();
-      console.log(this.a + this.time * this.b);
-      console.log(true, false, 'null'.bgBlue.bgRed, null, 'undefined'.red, undefined);
-    }, this.a + this.time * this.b);
-  };
-
-  this.stop = () => {
-    clearTimeout(this.handle);
-    this.time = 0;
-  };
+function ConstructorFun1(name) {
+  this.name = name;
 }
+// 通过new关键字创建实例
+var constructorfun = new ConstructorFun1();
 
-var a = new mySetInterVal(
-  () => {
-    console.error('123'.green);
-  },
-  100,
-  200,
-);
-a.start();
+console.log(constructorfun.constructor); // true
+console.log(constructorfun instanceof ConstructorFun1);
+console.log(constructorfun);

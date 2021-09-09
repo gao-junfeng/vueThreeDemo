@@ -32,6 +32,12 @@
             </el-menu-item>
           </el-menu-item-group>
         </el-submenu>
+
+        <el-menu-item-group>
+          <el-menu-item index="points">
+            <span slot="title">微粒子</span>
+          </el-menu-item>
+        </el-menu-item-group>
       </el-menu>
     </el-aside>
     <!--主内容显示区域，数据内容都是在这里面渲染的-->

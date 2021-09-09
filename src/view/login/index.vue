@@ -1,6 +1,13 @@
 <template>
   <div>
-    <el-button type="primary" @click="press">threejs</el-button>
+    <div id="e">
+      <el-button type="primary" @click="press">threejs</el-button>
+      <el-button type="primary" @click="getNode">获取123节点</el-button>
+      <el-button type="primary" @click="isShow">v-if</el-button>
+      <span id="a" v-show="isShowV">{{ Math.random() }}</span>
+    </div>
+
+    <img id="b" />
     <el-dialog title="提示" v-if="dialogVisible" :visible.sync="dialogVisible" width="900px">
       <div style="margin:auto">
         <span>这是一段信息</span>
@@ -16,16 +23,29 @@
 </template>
 <script>
 import HelloWorld from '@/components/HelloWorld';
+import html2canvas from 'html2canvas';
 
 export default {
   name: 'p1',
   data() {
-    return { dialogVisible: false };
+    return { dialogVisible: false, isShowV: true };
   },
   components: { HelloWorld },
   methods: {
     press() {
       this.dialogVisible = true;
+    },
+    getNode() {
+      const node = document.getElementById('e');
+      console.log(node);
+      html2canvas(node, { dpi: window.devicePixelRatio }).then(canvas => {
+        const b = document.getElementById('b');
+        const img = canvas.toDataURL('/image/png', 1.0);
+        b.src = img;
+      });
+    },
+    isShow() {
+      this.isShowV = !this.isShowV;
     },
   },
 };
