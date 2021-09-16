@@ -65,6 +65,37 @@
       console.log(B.getName());
       console.log(B);
       console.log(A);
+
+      function baba() {
+        this.name = 'baba';
+      }
+      baba.prototype.fnn = function() {
+        return this.name;
+      };
+      const eee = new baba();
+      console.log(eee.fnn());
+
+      class father {
+        static max = 2;
+        constructor() {
+          this.name = '大宝';
+        }
+        fn() {
+          return this.name;
+        }
+      }
+      father.prototype.fn1 = function() {
+        return this.name;
+      };
+
+      class son extends father {
+        constructor() {
+          super();
+          this.age = 8;
+        }
+      }
+      const a = new son();
+      console.log(a.fn1());
     </script>
   </body>
 </html>
