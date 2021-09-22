@@ -7,10 +7,67 @@
     <title>Document</title>
   </head>
   <body>
+    <div id="a"></div>
     <script type="module">
-      import { ni as sasa } from './demo.js';
-      console.log(sasa);
+      const sleep = delay => {
+        for (let start = Date.now(); Date.now() - start <= delay; ) {}
+      };
+
+      let taskQueue = [
+        () => {
+          console.log('task1 start');
+          const img = document.createElement('img');
+          img.setAttribute(
+            'src',
+            'https://tse1-mm.cn.bing.net/th/id/R-C.92204e7272217b4cf6993a62bda07c9d?rik=P2ANU%2bf5O4q%2f0w&riu=http%3a%2f%2fimg95.699pic.com%2fphoto%2f40132%2f1139.gif_wh860.gif&ehk=Nz4rTwcamHjPFTFZj2geu7my7sOMYgC87o%2bhcrdD%2f9k%3d&risl=&pid=ImgRaw&r=0',
+          );
+          document.getElementById('a').appendChild(img);
+          sleep(1000); // 已经超过一帧的时间（16.6ms），需要把控制权交给浏览器
+          console.log('task1 end');
+        },
+        () => {
+          sleep(1000); // 已经超过一帧的时间（16.6ms），需要把控制权交给浏览器
+          const img = document.createElement('img');
+          img.setAttribute(
+            'src',
+            'https://tse1-mm.cn.bing.net/th/id/R-C.92204e7272217b4cf6993a62bda07c9d?rik=P2ANU%2bf5O4q%2f0w&riu=http%3a%2f%2fimg95.699pic.com%2fphoto%2f40132%2f1139.gif_wh860.gif&ehk=Nz4rTwcamHjPFTFZj2geu7my7sOMYgC87o%2bhcrdD%2f9k%3d&risl=&pid=ImgRaw&r=0',
+          );
+          document.getElementById('a').appendChild(img);
+        },
+        () => {
+          console.log('task2 start');
+          // sleep(20); // 已经超过一帧的时间（16.6ms），需要把控制权交给浏览器
+          console.log('task2 end');
+        },
+        () => {
+          console.log('task3 start');
+          // sleep(20); // 已经超过一帧的时间（16.6ms），需要把控制权交给浏览器
+          console.log('task3 end');
+        },
+      ];
+
+      const performUnitWork = () => {
+        // 取出第一个队列中的第一个任务并执行
+        taskQueue.shift()();
+      };
+
+      const workloop = deadline => {
+        console.log(`此帧的剩余时间为: ${deadline.timeRemaining()}`);
+        // 如果此帧剩余时间大于0或者已经到了定义的超时时间（上文定义了timeout时间为1000，到达时间时必须强制执行），且当时存在任务，则直接执行这个任务
+        // 如果没有剩余时间，则应该放弃执行任务控制权，把执行权交还给浏览器
+        while ((deadline.timeRemaining() > 0 || deadline.didTimeout) && taskQueue.length > 0) {
+          performUnitWork();
+        }
+
+        // 如果还有未完成的任务，继续调用requestIdleCallback申请下一个时间片
+        if (taskQueue.length > 0) {
+          window.requestIdleCallback(workloop, { timeout: 1000 });
+        }
+      };
+
+      requestIdleCallback(workloop, { timeout: 1000 });
     </script>
+
     <!-- <script type="text/javascript">
  
       const foo = new Promise(function(resolve, reject) {

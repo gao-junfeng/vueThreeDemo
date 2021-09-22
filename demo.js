@@ -1,3 +1,21 @@
+const methodsList = [
+  a => {
+    console.log(a);
+  },
+  (a, b) => {
+    return console.log(a + b);
+  },
+  (f = (...adds) => {
+    if (adds.length === 0) return 0;
+    if (adds instanceof Array && adds.length > 1) {
+      return adds.shift() + adds.shift() + f(...adds);
+    } else {
+      return adds.shift();
+    }
+  }),
+];
+console.log(methodsList[2](1, 2, 3, 3, 4));
+
 class Example {
   constructor(a, b) {
     this.a = a; // 实例化时调用 set 方法
