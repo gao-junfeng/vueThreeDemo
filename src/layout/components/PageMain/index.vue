@@ -13,6 +13,7 @@
             <el-menu-item :route="{ name: 'three' }" index="/three">草地模型1</el-menu-item>
             <el-menu-item :route="{ name: 'mesh' }" index="/mesh">转圈模型1</el-menu-item>
             <el-menu-item :route="{ name: 'threeButton' }" index="/threeButton">弹框模型</el-menu-item>
+            <el-menu-item :route="{ name: 'h5model' }" index="/h5model">拖拽模型</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="2">
@@ -36,6 +37,11 @@
         <el-menu-item-group>
           <el-menu-item index="points">
             <span slot="title">微粒子</span>
+          </el-menu-item>
+        </el-menu-item-group>
+        <el-menu-item-group>
+          <el-menu-item index="fuwenben">
+            <span slot="title">富文本</span>
           </el-menu-item>
         </el-menu-item-group>
       </el-menu>

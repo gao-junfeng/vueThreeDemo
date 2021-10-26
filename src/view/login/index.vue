@@ -22,15 +22,23 @@
   </div>
 </template>
 <script>
-import HelloWorld from '@/components/HelloWorld';
+// import HelloWorld from '@/components/HelloWorld';
 import html2canvas from 'html2canvas';
+
+const files = require.context('@/components', false, /\.vue$/);
+let components = {};
+// 遍历files对象，构建components键值
+files.keys().forEach(key => {
+  components[key.replace(/(\.\/|\.vue)/g, '')] = files(key).default;
+});
+console.log(components);
 
 export default {
   name: 'p1',
   data() {
     return { dialogVisible: false, isShowV: true };
   },
-  components: { HelloWorld },
+  components,
   methods: {
     press() {
       this.dialogVisible = true;

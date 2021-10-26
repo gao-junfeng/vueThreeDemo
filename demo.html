@@ -169,6 +169,16 @@
         }),
       ];
       console.log(methodsList[2](1, 3, 3, 3, 4));
+      [methodsList[0], methodsList[1]] = [methodsList[1], methodsList[0]];
+      console.log(methodsList);
+      (function jiaobaba() {
+        function woer() {
+          console.log('woer');
+          return 'woer';
+        }
+        woer();
+        return 'baba';
+      })();
     </script>
   </body>
 </html>

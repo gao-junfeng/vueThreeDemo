@@ -19,7 +19,7 @@ export default new Router({
       children: [
         {
           path: '/',
-          redirect: '/three',
+          redirect: '/h5model',
         },
         {
           path: '/threeButton',
@@ -35,6 +35,11 @@ export default new Router({
           path: '/three',
           name: 'three',
           component: require('@/components/HelloWorld').default,
+        },
+        {
+          path: '/h5model',
+          name: 'h5model',
+          component: require('@/components/h5model').default,
         },
       ],
     },
@@ -57,6 +62,11 @@ export default new Router({
       path: '/*',
       name: '',
       component: require('@/view/404').default,
+    },
+    {
+      path: '/fuwenben',
+      name: 'fuwenben',
+      component: require('@/components/fuwenben').default,
     },
   ],
 });

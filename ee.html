@@ -16,7 +16,11 @@
       let taskQueue = [
         () => {
           console.log('task1 start');
-          const img = document.createElement('img');
+          const img = document.createElement('img', { is: 'expanding-list' });
+          console.log(img);
+          // 也行
+          // img.src =
+          //   'https://tse1-mm.cn.bing.net/th/id/R-C.92204e7272217b4cf6993a62bda07c9d?rik=P2ANU%2bf5O4q%2f0w&riu=http%3a%2f%2fimg95.699pic.com%2fphoto%2f40132%2f1139.gif_wh860.gif&ehk=Nz4rTwcamHjPFTFZj2geu7my7sOMYgC87o%2bhcrdD%2f9k%3d&risl=&pid=ImgRaw&r=0';
           img.setAttribute(
             'src',
             'https://tse1-mm.cn.bing.net/th/id/R-C.92204e7272217b4cf6993a62bda07c9d?rik=P2ANU%2bf5O4q%2f0w&riu=http%3a%2f%2fimg95.699pic.com%2fphoto%2f40132%2f1139.gif_wh860.gif&ehk=Nz4rTwcamHjPFTFZj2geu7my7sOMYgC87o%2bhcrdD%2f9k%3d&risl=&pid=ImgRaw&r=0',
@@ -66,6 +70,23 @@
       };
 
       requestIdleCallback(workloop, { timeout: 1000 });
+
+      var name = '小刚';
+      function a(a = 0, b = 1) {
+        console.log(this.name, this);
+        console.log(a + b);
+        return a + b;
+      }
+      const mayObj = {
+        name: '小鲨鱼',
+      };
+      a.call(window);
+      // 返回一个函数
+      a.bind(mayObj, 5)();
+      // 丝滑舒适
+      a.call(mayObj, 5);
+      // 必传数组
+      a.apply(mayObj, [5, 2, 5]);
     </script>
 
     <!-- <script type="text/javascript">
